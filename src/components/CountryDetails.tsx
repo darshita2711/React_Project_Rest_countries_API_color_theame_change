@@ -1,4 +1,3 @@
-
 import { useParams, Link } from "react-router-dom";
 import useCountries from "../hooks/useCountries";
 
@@ -27,7 +26,18 @@ function CountryDetails() {
       <Link to="/" className="back-button">
         ← Back to Home
       </Link>
-
+       <div className="country-details">
+        <div className="details-flag">
+          {country.flag?.url_png ? (
+            <img
+              src={country.flag.url_png}
+              alt={`Flag of ${country.names.common}`}
+            />
+          ) : (
+            <span>{country.flag?.emoji || "🏳️"}</span>
+          )}
+        </div>
+        <div className="details-content">
       <h1>{country.names.common}</h1>
 
       <div className="details-info">
@@ -54,6 +64,8 @@ function CountryDetails() {
           <strong>Capital:</strong>{" "}
           {country.capitals?.map((capital) => capital.name).join(", ") || "N/A"}
         </p>
+        </div>
+        </div>
       </div>
     </main>
   );
