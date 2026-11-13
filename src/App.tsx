@@ -1,46 +1,39 @@
-import { useState } from 'react';
-import './App.css'
-import Navbar from './components/Navbar'
-import SearchBar from './components/SearchBar'
-import RegionFilter from './components/RegionFilter';
-import useCountries from './hooks/useCountries';
+
+import { useState } from "react";
+import "./App.css";
+
+import Navbar from "./components/Navbar";
+import { Routes, Route } from "react-router-dom";
+
+import CountryDetails from "./pages/CountryDetails";
+import HomePage from "./pages/HomePage";
 
 function App() {
-  // searchTerm stores the current search text.
-  //  selectedRegion stores the currently selected region from the dropdown.
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedRegion, setSelectedRegion] = useState("");
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const { countries, loading, error } = useCountries();
+  function handleThemeChange() {
+    setIsDarkMode(!isDarkMode);
+  }
 
   return (
-    <>
-    <Navbar />
-     <main className="main-container">
-        <div className="filter-section">
-          <SearchBar
-            searchTerm={searchTerm}
-            onSearchChange={setSearchTerm}
-          />
+    <div className={isDarkMode ? "app-shell dark" : "app-shell"}>
 
-          <RegionFilter
-            selectedRegion={selectedRegion}
-            onRegionChange={setSelectedRegion}
-          />
-        </div>
+      <Navbar
+        isDarkMode={isDarkMode}
+        onToggleTheme={handleThemeChange}
+      />
 
-        {loading && <p>Loading countries...</p>}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
 
-        {error && <p>Error: {error}</p>}
+        <Route
+          path="/country/:code"
+          element={<CountryDetails />}
+        />
+      </Routes>
 
-        {!loading && !error && (
-          <p className="debug-text">
-            Successfully loaded {countries.length} countries!
-          </p>
-        )}
-      </main>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
