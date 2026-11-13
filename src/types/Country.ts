@@ -12,6 +12,7 @@ export interface Country {
   flag: {
     emoji: string;
   };
+  subregion?: string;
 
   population: number;
   region: string;
