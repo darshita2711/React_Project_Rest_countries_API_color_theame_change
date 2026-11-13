@@ -10,7 +10,10 @@ export interface Country {
   };
 
   flag: {
+      url_png: any;
     emoji: string;
+    png: string;
+  svg: string;
   };
   subregion?: string;
 

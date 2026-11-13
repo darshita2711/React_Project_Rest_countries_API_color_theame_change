@@ -11,6 +11,14 @@ function HomePage() {
 
   const { countries, loading, error } = useCountries();
 
+  console.log(
+  "All flag URLs:",
+  countries.slice(0, 10).map((country) => ({
+    name: country.names.common,
+    png: country.flag?.url_png,
+    svg: country.flag?.url_svg,
+  }))
+);
   const filteredCountries = countries.filter((country) => {
     const matchesSearch = country.names.common
       .toLowerCase()

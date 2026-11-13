@@ -15,9 +15,19 @@ function CountryCard({ country }: CountryCardProps) {
 
 
     <article className="country-card">
+
       <div className="country-flag">
-        {country.flag?.emoji || "🏳️"}
-      </div>
+  {country.flag?.url_png ? (
+    <img
+      src={country.flag.url_png}
+      alt={`Flag of ${country.names.common}`}
+    />
+  ) : (
+    <span className="flag-placeholder">
+      {country.flag?.emoji || "🏳️"}
+    </span>
+  )}
+</div>
 
       <div className="country-info">
         <h2>{country.names.common}</h2>
